@@ -17,6 +17,7 @@ export interface IUserLookup {
 export interface IUserUpdateFields {
     name?: string;
     email?: string;
+    imageUrl?: string;
 }
 
 export interface IUserStore extends Store<IUser, number> {

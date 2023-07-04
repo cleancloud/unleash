@@ -309,6 +309,34 @@ class UserService {
         );
     }
 
+    async loginUserAuth0(
+        email: string,
+        name: string,
+        imageUrl: string,
+    ): Promise<IUser> {
+        const settings = await this.settingService.get<SimpleAuthSettings>(
+            simpleAuthSettingsKey,
+        );
+
+        if (settings?.disabled) {
+            throw new DisabledError(
+                'Logging in with username/password has been disabled.',
+            );
+        }
+
+        let user: IUser;
+        try {
+            user = await this.store.getByQuery({ email });
+            if (user) {
+                user = await this.store.update(user.id, { name, imageUrl });
+            }
+        } catch (e) {
+            throw e;
+        }
+        await this.store.successfullyLogin(user);
+        return user;
+    }
+
     /**
      * Used to login users without specifying password. Used when integrating
      * with external identity providers.
