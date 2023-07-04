@@ -324,15 +324,9 @@ class UserService {
             );
         }
 
-        let user: IUser;
-        try {
-            user = await this.store.getByQuery({ email });
-            if (user) {
-                user = await this.store.update(user.id, { name, imageUrl });
-            }
-        } catch (e) {
-            throw e;
-        }
+        let user = await this.store.getByQuery({ email });
+        user = await this.store.update(user.id, { name, imageUrl });
+
         await this.store.successfullyLogin(user);
         return user;
     }
