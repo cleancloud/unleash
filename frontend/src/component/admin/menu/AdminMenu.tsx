@@ -83,14 +83,14 @@ function AdminMenu() {
                         }
                     />
                 )}
-                <Tab
+                {/* <Tab
                     value="auth"
                     label={
                         <CenteredNavLink to="/admin/auth">
                             Single sign-on
                         </CenteredNavLink>
                     }
-                />
+                /> */}
                 <Tab
                     value="instance"
                     label={

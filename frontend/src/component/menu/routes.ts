@@ -469,11 +469,11 @@ export const adminMenuRoutes: INavigationMenuItem[] = [
         flag: 'embedProxyFrontend',
         menu: { adminSettings: true },
     },
-    {
-        path: '/admin/auth',
-        title: 'Single sign-on',
-        menu: { adminSettings: true },
-    },
+    // {
+    //     path: '/admin/auth',
+    //     title: 'Single sign-on',
+    //     menu: { adminSettings: true },
+    // },
     {
         path: '/admin/instance',
         title: 'Instance stats',
