@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { ApiTokenPage } from './apiToken/ApiTokenPage/ApiTokenPage';
 import { CreateApiToken } from './apiToken/CreateApiToken/CreateApiToken';
-import { AuthSettings } from './auth/AuthSettings';
+// import { AuthSettings } from './auth/AuthSettings';
 import { Billing } from './billing/Billing';
 import FlaggedBillingRedirect from './billing/FlaggedBillingRedirect/FlaggedBillingRedirect';
 import { CorsAdmin } from './cors';
@@ -44,7 +44,7 @@ export const Admin = () => (
             <Route path="network/*" element={<Network />} />
             <Route path="maintenance" element={<MaintenanceAdmin />} />
             <Route path="cors" element={<CorsAdmin />} />
-            <Route path="auth" element={<AuthSettings />} />
+            {/* <Route path="auth" element={<AuthSettings />} /> --> */}
             <Route path="admin-invoices" element={<FlaggedBillingRedirect />} />
             <Route path="billing" element={<Billing />} />
             <Route path="instance-privacy" element={<InstancePrivacy />} />

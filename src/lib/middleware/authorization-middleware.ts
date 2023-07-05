@@ -31,7 +31,7 @@ const authorizationMiddleware = (
         const path = `${baseUriPath}/auth/simple/login`;
         const error = new AuthenticationRequired({
             message: `You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at ${path}`,
-            type: 'password',
+            type: 'auth0',
             path,
         });
 

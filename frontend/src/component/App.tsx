@@ -21,6 +21,8 @@ import MaintenanceBanner from './maintenance/MaintenanceBanner';
 import { styled } from '@mui/material';
 import { InitialRedirect } from './InitialRedirect';
 
+import { Auth0Provider } from '@auth0/auth0-react';
+
 const StyledContainer = styled('div')(() => ({
     '& ul': {
         margin: 0,
@@ -28,6 +30,11 @@ const StyledContainer = styled('div')(() => ({
 }));
 
 export const App = () => {
+    const auth0Config = {
+        domain: process.env.REACT_APP_AUTH0_DOMAIN,
+        clientId: process.env.REACT_APP_AUTH0_CLIENT_ID
+    };
+
     const { authDetails } = useAuthDetails();
     const { refetch: refetchUiConfig } = useUiConfig();
 
@@ -47,68 +54,70 @@ export const App = () => {
     }, [authDetails, user]);
 
     return (
-        <ErrorBoundary FallbackComponent={Error}>
-            <PlausibleProvider>
-                <ErrorBoundary FallbackComponent={Error}>
-                    <SWRProvider>
-                        <Suspense fallback={<Loader />}>
-                            <ConditionallyRender
-                                condition={!hasFetchedAuth}
-                                show={<Loader />}
-                                elseShow={
-                                    <>
-                                        <ConditionallyRender
-                                            condition={Boolean(
-                                                uiConfig?.maintenanceMode
-                                            )}
-                                            show={<MaintenanceBanner />}
-                                        />
-                                        <StyledContainer>
-                                            <ToastRenderer />
-                                            <Routes>
-                                                {availableRoutes.map(route => (
-                                                    <Route
-                                                        key={route.path}
-                                                        path={route.path}
-                                                        element={
-                                                            <LayoutPicker
-                                                                isStandalone={
-                                                                    route.isStandalone ===
-                                                                    true
-                                                                }
-                                                            >
-                                                                <ProtectedRoute
-                                                                    route={
-                                                                        route
+        <Auth0Provider {...auth0Config}>
+            <ErrorBoundary FallbackComponent={Error}>
+                <PlausibleProvider>
+                    <ErrorBoundary FallbackComponent={Error}>
+                        <SWRProvider>
+                            <Suspense fallback={<Loader />}>
+                                <ConditionallyRender
+                                    condition={!hasFetchedAuth}
+                                    show={<Loader />}
+                                    elseShow={
+                                        <>
+                                            <ConditionallyRender
+                                                condition={Boolean(
+                                                    uiConfig?.maintenanceMode
+                                                )}
+                                                show={<MaintenanceBanner />}
+                                            />
+                                            <StyledContainer>
+                                                <ToastRenderer />
+                                                <Routes>
+                                                    {availableRoutes.map(route => (
+                                                        <Route
+                                                            key={route.path}
+                                                            path={route.path}
+                                                            element={
+                                                                <LayoutPicker
+                                                                    isStandalone={
+                                                                        route.isStandalone ===
+                                                                        true
                                                                     }
-                                                                />
-                                                            </LayoutPicker>
+                                                                >
+                                                                    <ProtectedRoute
+                                                                        route={
+                                                                            route
+                                                                        }
+                                                                    />
+                                                                </LayoutPicker>
+                                                            }
+                                                        />
+                                                    ))}
+                                                    <Route
+                                                        path="/"
+                                                        element={
+                                                            <InitialRedirect />
                                                         }
                                                     />
-                                                ))}
-                                                <Route
-                                                    path="/"
-                                                    element={
-                                                        <InitialRedirect />
-                                                    }
-                                                />
-                                                <Route
-                                                    path="*"
-                                                    element={<NotFound />}
-                                                />
-                                            </Routes>
+                                                    <Route
+                                                        path="*"
+                                                        element={<NotFound />}
+                                                    />
+                                                </Routes>
 
-                                            <FeedbackNPS openUrl="http://feedback.unleash.run" />
+                                                <FeedbackNPS openUrl="http://feedback.unleash.run" />
 
-                                            <SplashPageRedirect />
-                                        </StyledContainer>
-                                    </>
-                                }
-                            />
-                        </Suspense>
-                    </SWRProvider>
-                </ErrorBoundary>
-            </PlausibleProvider>
-        </ErrorBoundary>
+                                                <SplashPageRedirect />
+                                            </StyledContainer>
+                                        </>
+                                    }
+                                />
+                            </Suspense>
+                        </SWRProvider>
+                    </ErrorBoundary>
+                </PlausibleProvider>
+            </ErrorBoundary>
+        </Auth0Provider>
     );
 };

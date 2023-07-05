@@ -1,6 +1,7 @@
 import SimpleAuth from '../SimpleAuth/SimpleAuth';
 import { AuthenticationCustomComponent } from 'component/user/AuthenticationCustomComponent';
 import PasswordAuth from '../PasswordAuth';
+import Auth0Auth from '../Auth0Auth';
 import HostedAuth from '../HostedAuth';
 import DemoAuth from '../DemoAuth/DemoAuth';
 import {
@@ -8,6 +9,7 @@ import {
     DEMO_TYPE,
     PASSWORD_TYPE,
     HOSTED_TYPE,
+    AUTH0_TYPE,
 } from 'constants/authTypes';
 import SecondaryLoginActions from '../common/SecondaryLoginActions';
 import useQueryParams from 'hooks/useQueryParams';
@@ -51,6 +53,16 @@ const Authentication = ({
         content = (
             <>
                 <PasswordAuth authDetails={authDetails} redirect={redirect} />
+                <ConditionallyRender
+                    condition={!authDetails.defaultHidden}
+                    show={<SecondaryLoginActions />}
+                />
+            </>
+        );
+    } else if (authDetails.type === AUTH0_TYPE) {
+        content = (
+            <>
+                <Auth0Auth authDetails={authDetails} redirect={redirect} />
                 <ConditionallyRender
                     condition={!authDetails.defaultHidden}
                     show={<SecondaryLoginActions />}

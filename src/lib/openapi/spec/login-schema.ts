@@ -4,12 +4,15 @@ export const loginSchema = {
     $id: '#/components/schemas/loginSchema',
     type: 'object',
     additionalProperties: false,
-    required: ['username', 'password'],
+    required: [],
     properties: {
         username: {
             type: 'string',
         },
         password: {
+            type: 'string',
+        },
+        token: {
             type: 'string',
         },
     },

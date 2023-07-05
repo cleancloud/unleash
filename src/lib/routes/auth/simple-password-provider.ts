@@ -2,6 +2,7 @@ import { Response } from 'express';
 import { OpenApiService } from '../../services/openapi-service';
 import { Logger } from '../../logger';
 import { IUnleashConfig } from '../../server-impl';
+import { IUser } from '../../types/user';
 import UserService from '../../services/user-service';
 import { IUnleashServices } from '../../types';
 import { NONE } from '../../types/permissions';
@@ -54,9 +55,40 @@ export class SimplePasswordProvider extends Controller {
         req: IAuthRequest<void, void, LoginSchema>,
         res: Response<UserSchema>,
     ): Promise<void> {
-        const { username, password } = req.body;
+        const { username, password, token } = req.body;
 
-        const user = await this.userService.loginUser(username, password);
+        let user: IUser;
+        if (token) {
+            const { AuthenticationClient, ManagementClient } = require('auth0');
+
+            const auth0Client = new AuthenticationClient({
+                domain: process.env.AUTH0_DOMAIN,
+                clientId: process.env.AUTH0_API_CLIENT_ID,
+                clientSecret: process.env.AUTH0_API_CLIENT_SECRET,
+            });
+
+            const { access_token: accessToken } =
+                await auth0Client.clientCredentialsGrant({
+                    audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
+                });
+            const auth0Management = new ManagementClient({
+                domain: process.env.AUTH0_DOMAIN,
+                token: accessToken,
+            });
+
+            const authUser = await auth0Management.getUser({
+                id: token,
+                scope: 'openid',
+            });
+            user = await this.userService.loginUserAuth0(
+                authUser.email,
+                authUser.name,
+                authUser.picture,
+            );
+        } else {
+            user = await this.userService.loginUser(username, password);
+        }
+
         req.session.user = user;
         this.openApiService.respondWithValidation(
             200,

@@ -7,9 +7,15 @@ type PasswordLogin = (
     password: string
 ) => Promise<Response>;
 
+type Auth0Login = (
+    path: string,
+    token: string
+) => Promise<Response>;
+
 type EmailLogin = (path: string, email: string) => Promise<Response>;
 
 interface IUseAuthApiOutput {
+    auth0Auth: Auth0Login;
     passwordAuth: PasswordLogin;
     emailAuth: EmailLogin;
     errors: Record<string, string>;
@@ -20,6 +26,21 @@ export const useAuthApi = (): IUseAuthApiOutput => {
     const { makeRequest, errors, loading } = useAPI({
         propagateErrors: true,
     });
+
+    const auth0Auth = (path: string, token: string) => {
+        const req = {
+            caller: () => {
+                return fetch(path, {
+                    headers,
+                    method: 'POST',
+                    body: JSON.stringify({ token }),
+                });
+            },
+            id: 'auth0Auth',
+        };
+
+        return makeRequest(req.caller, req.id);
+    };
 
     const passwordAuth = (path: string, username: string, password: string) => {
         const req = {
@@ -52,6 +73,7 @@ export const useAuthApi = (): IUseAuthApiOutput => {
     };
 
     return {
+        auth0Auth,
         passwordAuth,
         emailAuth,
         errors,

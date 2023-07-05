@@ -5,7 +5,8 @@ exports.up = function (db, cb) {
         `
             INSERT INTO environments(name, type, enabled, sort_order)
             VALUES ('development', 'development', true, 100),
-                   ('production', 'production', true, 200);
+                   ('staging', 'staging', true, 200),
+                   ('production', 'production', true, 300);
         `,
         cb,
     );
@@ -16,7 +17,7 @@ exports.down = function (db, cb) {
         `
         DELETE
         FROM environments
-        WHERE name IN ('development', 'production');
+        WHERE name IN ('development', 'staging', 'production');
     `,
         cb,
     );
