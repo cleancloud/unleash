@@ -3,7 +3,7 @@ import { Response } from 'express';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import hashSum from 'hash-sum';
 import Controller from '../controller';
-import { IUnleashConfig, IUnleashServices } from '../../types';
+import { IUnleashConfig, IUnleashServices, serializeDates } from '../../types';
 import FeatureToggleService from '../../services/feature-toggle-service';
 import { Logger } from '../../logger';
 import { querySchema } from '../../schema/feature-schema';
@@ -255,7 +255,7 @@ export default class FeatureController extends Controller {
                     version,
                     features,
                     query: { ...query },
-                    segments,
+                    segments: serializeDates(segments),
                     meta,
                 },
             );

@@ -141,3 +141,5 @@ export * from './advanced-playground-feature-schema';
 export * from './advanced-playground-response-schema';
 export * from './advanced-playground-request-schema';
 export * from './telemetry-settings-schema';
+export * from './feature-strategy-by-segment-schema';
+export * from './segments-schema';

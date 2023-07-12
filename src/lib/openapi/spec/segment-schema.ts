@@ -24,6 +24,19 @@ export const segmentSchema = {
             description: 'The description of the segment.',
             example: 'Segment A description',
         },
+        project: {
+            type: 'string',
+            nullable: true,
+        },
+        createdBy: {
+            type: 'string',
+            nullable: true,
+        },
+        createdAt: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true,
+        },
         constraints: {
             type: 'array',
             description:
@@ -31,6 +44,7 @@ export const segmentSchema = {
             items: {
                 $ref: '#/components/schemas/constraintSchema',
             },
+            nullable: true,
         },
     },
     components: {

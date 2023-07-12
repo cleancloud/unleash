@@ -411,6 +411,10 @@ export interface ISegment {
     createdAt: Date;
 }
 
+export interface ISegmentParam {
+    segmentId: number;
+}
+
 export interface IFeatureStrategySegment {
     featureStrategyId: string;
     segmentId: number;
