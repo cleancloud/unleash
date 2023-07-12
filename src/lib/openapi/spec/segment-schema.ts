@@ -31,6 +31,7 @@ export const segmentSchema = {
             items: {
                 $ref: '#/components/schemas/constraintSchema',
             },
+            nullable: true,
         },
     },
     components: {

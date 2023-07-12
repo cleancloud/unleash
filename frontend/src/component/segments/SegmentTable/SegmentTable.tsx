@@ -43,19 +43,11 @@ export const SegmentTable = () => {
 
     const data = useMemo(() => {
         if (!segments) {
-            return Array(5).fill({
-                name: 'Segment name',
-                description: 'Segment descripton',
-                createdAt: new Date().toISOString(),
-                createdBy: 'user',
-                projectId: 'Project',
-            });
+            return Array(0);
         }
-
         if (projectId) {
             return segments.filter(({ project }) => project === projectId);
         }
-
         return segments;
     }, [segments, projectId]);
 
