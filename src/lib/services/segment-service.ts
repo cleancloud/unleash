@@ -245,3 +245,4 @@ export class SegmentService implements ISegmentService {
         }
     }
 }
+export default SegmentService;

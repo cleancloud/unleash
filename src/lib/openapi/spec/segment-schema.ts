@@ -6,7 +6,7 @@ export const segmentSchema = {
     type: 'object',
     description:
         'Represents a segment of users defined by a set of constraints.',
-    additionalProperties: false,
+    additionalProperties: true,
     required: ['id', 'constraints'],
     properties: {
         id: {
@@ -24,6 +24,19 @@ export const segmentSchema = {
             description: 'The description of the segment.',
             example: 'Segment A description',
         },
+        project: {
+            type: 'string',
+            nullable: true,
+        },
+        createdBy: {
+            type: 'string',
+            nullable: true,
+        },
+        createdAt: {
+            type: 'string',
+            format: 'date-time',
+            nullable: true,
+        },
         constraints: {
             type: 'array',
             description:
@@ -31,6 +44,7 @@ export const segmentSchema = {
             items: {
                 $ref: '#/components/schemas/constraintSchema',
             },
+            nullable: true,
         },
     },
     components: {

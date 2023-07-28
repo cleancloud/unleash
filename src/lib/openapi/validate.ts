@@ -32,7 +32,7 @@ export const validateSchema = <S = SchemaId>(
     schema: S,
     data: unknown,
 ): ISchemaValidationErrors<S> | undefined => {
-    if (!ajv.validate(schema, data)) {
+    if (!ajv.validate(schema as string, data)) {
         return {
             schema,
             errors: ajv.errors ?? [],

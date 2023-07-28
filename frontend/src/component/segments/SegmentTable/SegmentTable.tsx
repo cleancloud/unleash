@@ -42,21 +42,15 @@ export const SegmentTable = () => {
     });
 
     const data = useMemo(() => {
-        if (!segments) {
-            return Array(5).fill({
-                name: 'Segment name',
-                description: 'Segment descripton',
-                createdAt: new Date().toISOString(),
-                createdBy: 'user',
-                projectId: 'Project',
-            });
+        if (!segments?.segments) {
+            return Array(0);
         }
-
         if (projectId) {
-            return segments.filter(({ project }) => project === projectId);
+            return segments.segments.filter(
+                ({ project }) => project === projectId
+            );
         }
-
-        return segments;
+        return segments.segments;
     }, [segments, projectId]);
 
     const columns = useMemo(

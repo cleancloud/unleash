@@ -21,6 +21,7 @@ import EmailController from './email';
 import UserFeedbackController from './user-feedback';
 import UserSplashController from './user-splash';
 import ProjectApi from './project';
+import { SegmentsController } from './segments';
 import { EnvironmentsController } from './environments';
 import ConstraintsController from './constraints';
 import PatController from './user/pat';
@@ -41,7 +42,6 @@ class AdminApi extends Controller {
             '/features',
             new FeatureController(config, services).router,
         );
-
         this.app.use(
             '/feature-types',
             new FeatureTypeController(config, services).router,
@@ -110,6 +110,10 @@ class AdminApi extends Controller {
         );
         this.app.use('/projects', new ProjectApi(config, services, db).router);
         this.app.use(
+            '/segments',
+            new SegmentsController(config, services).router,
+        );
+        this.app.use(
             '/environments',
             new EnvironmentsController(config, services).router,
         );
@@ -133,12 +137,10 @@ class AdminApi extends Controller {
             `/projects`,
             new FavoritesController(config, services).router,
         );
-
         this.app.use(
             '/maintenance',
             new MaintenanceController(config, services).router,
         );
-
         this.app.use(
             '/telemetry',
             new TelemetryController(config, services).router,

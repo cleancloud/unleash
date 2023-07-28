@@ -6,7 +6,10 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useConditionalSWR } from '../useConditionalSWR/useConditionalSWR';
 
 export interface IUseSegmentsOutput {
-    segments?: ISegment[];
+    segments?: {
+        version: number;
+        segments: ISegment[];
+    };
     refetchSegments: () => void;
     loading: boolean;
     error?: Error;
@@ -45,5 +48,5 @@ export const fetchSegments = async (url: string) => {
     return fetch(url)
         .then(handleErrorResponses('Segments'))
         .then(res => res.json())
-        .then(res => res.segments);
+        .then(res => res);
 };
