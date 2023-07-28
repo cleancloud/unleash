@@ -41,7 +41,7 @@ typings
 
 # We use yarn.lock
 package-lock.json
-
+yarn.lock
 
 # Website stuff
 /website/build
