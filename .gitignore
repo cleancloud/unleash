@@ -42,6 +42,7 @@ typings
 # We use yarn.lock
 package-lock.json
 
+
 # Website stuff
 /website/build
 /website/backers.json
@@ -57,3 +58,4 @@ frontend/build
 website/docs/reference/api/**/sidebar.js
 website/docs/generated
 reports/jest-junit.xml
+

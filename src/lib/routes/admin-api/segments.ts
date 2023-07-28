@@ -21,10 +21,10 @@ import {
     segmentSchema,
     SegmentSchema,
 } from '../../openapi/spec/segment-schema';
-// import {
-//     segmentsSchema,
-//     SegmentsSchema,
-// } from '../../openapi/spec/segments-schema';
+import {
+    segmentsSchema,
+    SegmentsSchema,
+} from '../../openapi/spec/segments-schema';
 import {
     upsertSegmentSchema,
     UpsertSegmentSchema,
@@ -175,15 +175,18 @@ export class SegmentsController extends Controller {
 
     async getSegments(
         req: IAuthRequest,
-        res: Response<SegmentSchema[]>,
+        res: Response<SegmentsSchema>,
     ): Promise<void> {
         const allSegments = await this.service.getAll();
 
-        this.openApiService.respondWithValidation(
+        this.openApiService.respondWithValidation<SegmentsSchema>(
             200,
             res,
-            segmentSchema.$id,
-            serializeDates(allSegments),
+            segmentsSchema.$id,
+            {
+                version: 1,
+                segments: serializeDates(allSegments),
+            } as SegmentsSchema,
         );
     }
 

@@ -6,7 +6,10 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useConditionalSWR } from '../useConditionalSWR/useConditionalSWR';
 
 export interface IUseSegmentsOutput {
-    segments?: ISegment[];
+    segments?: {
+        version: number;
+        segments: ISegment[];
+    };
     refetchSegments: () => void;
     loading: boolean;
     error?: Error;

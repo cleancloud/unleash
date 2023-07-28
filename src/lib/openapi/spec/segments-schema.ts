@@ -15,7 +15,7 @@ export const segmentsSchema = {
             items: {
                 $ref: '#/components/schemas/segmentSchema',
             },
-            nullable: true,
+            nullable: false,
         },
     },
     components: {
