@@ -6,7 +6,7 @@ export const segmentSchema = {
     type: 'object',
     description:
         'Represents a segment of users defined by a set of constraints.',
-    additionalProperties: false,
+    additionalProperties: true,
     required: ['id', 'constraints'],
     properties: {
         id: {
