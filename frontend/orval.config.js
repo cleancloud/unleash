@@ -32,7 +32,7 @@ module.exports = {
         },
         input: {
             target:
-                process.env.UNLEASH_OPENAPI_URL ||
+                import.meta.env.UNLEASH_OPENAPI_URL ||
                 'http://localhost:4242/docs/openapi.json',
         },
     },
