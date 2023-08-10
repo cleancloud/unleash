@@ -62,17 +62,17 @@ export class SimplePasswordProvider extends Controller {
             const { AuthenticationClient, ManagementClient } = require('auth0');
 
             const auth0Client = new AuthenticationClient({
-                domain: process.env.AUTH0_DOMAIN,
-                clientId: process.env.AUTH0_API_CLIENT_ID,
-                clientSecret: process.env.AUTH0_API_CLIENT_SECRET,
+                domain: import.meta.env.AUTH0_DOMAIN,
+                clientId: import.meta.env.AUTH0_API_CLIENT_ID,
+                clientSecret: import.meta.env.AUTH0_API_CLIENT_SECRET,
             });
 
             const { access_token: accessToken } =
                 await auth0Client.clientCredentialsGrant({
-                    audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
+                    audience: `https://${import.meta.env.AUTH0_DOMAIN}/api/v2/`,
                 });
             const auth0Management = new ManagementClient({
-                domain: process.env.AUTH0_DOMAIN,
+                domain: import.meta.env.AUTH0_DOMAIN,
                 token: accessToken,
             });
 
