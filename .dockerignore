@@ -10,4 +10,5 @@
 !LICENSE
 !README.md
 !frontend
+!env.d.ts
 frontend/node_modules

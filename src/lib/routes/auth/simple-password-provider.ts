@@ -86,7 +86,10 @@ export class SimplePasswordProvider extends Controller {
                 authUser.picture,
             );
         } else {
-            user = await this.userService.loginUser(username, password);
+            user = await this.userService.loginUser(
+                username ?? '',
+                password ?? '',
+            );
         }
 
         req.session.user = user;
