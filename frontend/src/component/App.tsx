@@ -74,30 +74,26 @@ export const App = () => {
                                             <StyledContainer>
                                                 <ToastRenderer />
                                                 <Routes>
-                                                    {availableRoutes.map(
-                                                        route => (
-                                                            <Route
-                                                                key={route.path}
-                                                                path={
-                                                                    route.path
-                                                                }
-                                                                element={
-                                                                    <LayoutPicker
-                                                                        isStandalone={
-                                                                            route.isStandalone ===
-                                                                            true
+                                                    {availableRoutes.map(route => (
+                                                        <Route
+                                                            key={route.path}
+                                                            path={route.path}
+                                                            element={
+                                                                <LayoutPicker
+                                                                    isStandalone={
+                                                                        route.isStandalone ===
+                                                                        true
+                                                                    }
+                                                                >
+                                                                    <ProtectedRoute
+                                                                        route={
+                                                                            route
                                                                         }
-                                                                    >
-                                                                        <ProtectedRoute
-                                                                            route={
-                                                                                route
-                                                                            }
-                                                                        />
-                                                                    </LayoutPicker>
-                                                                }
-                                                            />
-                                                        )
-                                                    )}
+                                                                    />
+                                                                </LayoutPicker>
+                                                            }
+                                                        />
+                                                    ))}
                                                     <Route
                                                         path="/"
                                                         element={

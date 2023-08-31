@@ -27,14 +27,22 @@ const vitestConfig = vitestDefineConfig({
     },
 });
 
+const envs = Object.keys(loadEnv('', process.cwd(), '')).reduce(
+    (env, key) => ({ ...env, [key]: JSON.stringify(key) }),
+    {} as Record<string, string>
+);
+
 export default mergeConfig(
     defineConfig({
         base: UNLEASH_BASE_PATH,
         define: {
-            ...Object.keys(loadEnv('', process.cwd(), '')).reduce(
-                (env, key) => ({ ...env, [key]: JSON.stringify(key) }),
-                {}
-            ),
+            UNLEASH_API: envs.UNLEASH_API,
+            UNLEASH_OPENAPI_URL: envs.UNLEASH_OPENAPI_URL,
+            UNLEASH_BASE_PATH: envs.UNLEASH_BASE_PATH,
+            REACT_APP_AUTH0_DOMAIN: envs.REACT_APP_AUTH0_DOMAIN,
+            REACT_APP_AUTH0_CLIENT_ID: envs.REACT_APP_AUTH0_CLIENT_ID,
+            DEV: envs.DEV,
+            BASE_URL: envs.BASE_URL,
         },
         build: {
             outDir: 'build',
