@@ -8,7 +8,7 @@ COPY . /unleash
 
 RUN yarn config set network-timeout 300000
 
-RUN yarn install --ignore-scripts && yarn prepare:backend && yarn local:package && yarn --cwd ./frontend && yarn build:frontend
+RUN yarn install --ignore-scripts && yarn copy-templates && yarn build:backend && yarn local:package && yarn --cwd ./frontend && yarn build:frontend
 
 # frontend/build should already exist (it needs to be built in the local filesystem
 RUN mkdir -p /unleash/build/frontend && mv /unleash/frontend/build /unleash/build/frontend/build

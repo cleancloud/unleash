@@ -12,8 +12,6 @@ import {
 } from '../../openapi/spec/telemetry-settings-schema';
 
 class TelemetryController extends Controller {
-    config: IUnleashConfig;
-
     openApiService: OpenApiService;
 
     constructor(
