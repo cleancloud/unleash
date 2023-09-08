@@ -35,6 +35,4 @@ EXPOSE 4242
 
 USER node
 
-ENTRYPOINT ["/entrypoint.sh"]
-
-CMD ["start"]
+CMD ["entrypoint.sh"]
