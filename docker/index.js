@@ -17,16 +17,21 @@ async function decrypt(data) {
 
     try {
         const decrypted = await decryptAsync(params);
+        console.log("Decrypted: ", decrypted);
         return decrypted.Plaintext.toString('utf-8');
     } catch (err) {
-        console.error('Error decrypting data: ', err);
+        console.log('Error decrypting data: ', err);
     }
 }
+
+console.log("PASSWORD: ", process.env.DATABASE_PASSWORD);
 
 process.env.DATABASE_PASSWORD = decrypt(process.env.DATABASE_PASSWORD);
 process.env.INIT_CLIENT_API_TOKENS = decrypt(process.env.INIT_CLIENT_API_TOKENS);
 process.env.INIT_FRONTEND_API_TOKENS = decrypt(process.env.INIT_FRONTEND_API_TOKENS);
 process.env.AUTH0_API_CLIENT_SECRET = decrypt(process.env.AUTH0_API_CLIENT_SECRET);
+
+console.log("PASSWORD: ", process.env.DATABASE_PASSWORD);
 
 const unleash = require('unleash-server');
 let options = {};
