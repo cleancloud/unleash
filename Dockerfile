@@ -27,6 +27,8 @@ WORKDIR /unleash
 
 COPY --from=builder /unleash/docker /unleash
 
+COPY --from=builder /unleash/docker/entrypoint.sh /unleash/entrypoint.sh
+
 RUN chmod +x ./entrypoint.sh
 
 RUN rm -rf /usr/local/lib/node_modules/npm/
@@ -34,6 +36,8 @@ RUN rm -rf /usr/local/lib/node_modules/npm/
 EXPOSE 4242
 
 USER node
+
+RUN ls -a
 
 ENTRYPOINT ["./unleash/entrypoint.sh"]
 
