@@ -2,30 +2,18 @@
 
 const aws = require('aws-sdk');
 const unleash = require('unleash-server');
+const kms = new aws.KMS({ region: process.env.AWS_REGION });
 
-aws.config.update({ region: process.env.AWS_REGION });
-const kms = new aws.KMS();
+const decrypt = async (secret) => {
+    const secretBuffer = Buffer.from(secret, 'base64');
+    const response = await kms.decrypt({ CiphertextBlob: secretBuffer }).promise();
+    return response.Plaintext.toString()
+};
 
-async function decrypt(data) {
-    const params = {
-        CiphertextBlob: Buffer.from(data, 'base64')
-    };
+process.env.DATABASE_PASSWORD = await decrypt(process.env.DATABASE_PASSWORD);
+process.env.INIT_CLIENT_API_TOKENS = await decrypt(process.env.INIT_CLIENT_API_TOKENS);
+process.env.INIT_FRONTEND_API_TOKENS = await decrypt(process.env.INIT_FRONTEND_API_TOKENS);
+process.env.AUTH0_API_CLIENT_SECRET = await decrypt(process.env.AUTH0_API_CLIENT_SECRET);
 
-    try {
-        const decrypted = await kms.decrypt(params).promise();
-        return decrypted.Plaintext.toString('utf-8');
-    } catch (err) {
-        console.error('Error decrypting data: ', err);
-    }
-}
-
-async function decryptAll() {
-    process.env.DATABASE_PASSWORD = await decrypt(process.env.DATABASE_PASSWORD);
-    process.env.INIT_CLIENT_API_TOKENS = await decrypt(process.env.INIT_CLIENT_API_TOKENS);
-    process.env.INIT_FRONTEND_API_TOKENS = await decrypt(process.env.INIT_FRONTEND_API_TOKENS);
-    process.env.AUTH0_API_CLIENT_SECRET = await decrypt(process.env.AUTH0_API_CLIENT_SECRET);
-}
-
-decryptAll();
 let options = {};
 unleash.start(options);
