@@ -39,4 +39,4 @@ USER node
 
 ENTRYPOINT ["./entrypoint.sh"]
 
-CMD ["ls"]
+CMD ["start"]
