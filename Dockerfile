@@ -2,6 +2,8 @@ ARG NODE_VERSION=18-alpine
 
 FROM node:$NODE_VERSION as builder
 
+RUN npm install aws-sdk
+
 WORKDIR /unleash
 
 COPY . /unleash
@@ -27,12 +29,10 @@ WORKDIR /unleash
 
 COPY --from=builder /unleash/docker /unleash
 
-RUN chmod +x entrypoint.sh
-
 RUN rm -rf /usr/local/lib/node_modules/npm/
 
 EXPOSE 4242
 
 USER node
 
-CMD ["/bin/bash", "entrypoint.sh"]
+CMD ["node", "index.js"]
