@@ -25,11 +25,11 @@ ENV TZ UTC
 
 WORKDIR /unleash
 
+RUN chmod +x entrypoint.sh
+
 COPY --from=builder /unleash/docker /unleash
 
-COPY --from=builder /unleash/docker/entrypoint.sh /unleash/entrypoint.sh
-
-RUN chmod +x entrypoint.sh
+COPY --from=builder /unleash/docker/entrypoint.sh /entrypoint.sh
 
 RUN rm -rf /usr/local/lib/node_modules/npm/
 

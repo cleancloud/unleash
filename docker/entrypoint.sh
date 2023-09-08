@@ -5,6 +5,8 @@ decrypt() {
     aws kms decrypt --ciphertext-blob fileb://decrypt_blob --query Plaintext --output text | base64 --decode
 }
 
+ls -la
+
 export DATABASE_PASSWORD="$(decrypt "$DATABASE_PASSWORD")"
 
 export INIT_CLIENT_API_TOKENS="$(decrypt "$INIT_CLIENT_API_TOKENS")"
