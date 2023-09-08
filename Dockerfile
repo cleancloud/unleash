@@ -2,6 +2,8 @@ ARG NODE_VERSION=18-alpine
 
 FROM node:$NODE_VERSION as builder
 
+RUN apt update && apt install -y --no-install-recommends awscli
+
 WORKDIR /unleash
 
 COPY . /unleash
@@ -27,10 +29,14 @@ WORKDIR /unleash
 
 COPY --from=builder /unleash/docker /unleash
 
+RUN chmod +x ./entrypoint.sh
+
 RUN rm -rf /usr/local/lib/node_modules/npm/
 
 EXPOSE 4242
 
 USER node
 
-CMD ["node", "index.js"]
+ENTRYPOINT ["./entrypoint.sh"]
+
+CMD ["start"]
