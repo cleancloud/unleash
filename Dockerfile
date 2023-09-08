@@ -15,7 +15,7 @@ RUN mkdir -p /unleash/build/frontend && mv /unleash/frontend/build /unleash/buil
 
 WORKDIR /unleash/docker
 
-RUN yarn install --frozen-lockfile --production=true
+RUN yarn install --production=true
 
 FROM node:$NODE_VERSION
 
