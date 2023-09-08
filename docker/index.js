@@ -6,7 +6,7 @@ const kms = new aws.KMS({ region: process.env.AWS_REGION });
 
 const decrypt = async (secret) => {
     const secretBuffer = Buffer.from(secret, 'base64');
-    const response = await kms.decrypt({ CiphertextBlob: secretBuffer });
+    const response = await kms.decrypt({ CiphertextBlob: secretBuffer }).promise();
     return response.Plaintext.toString()
 };
 
