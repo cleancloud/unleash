@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-function decrypt() {
+decrypt() {
     echo "$1" | base64 --decode > decrypt_blob
     aws kms decrypt --ciphertext-blob fileb://decrypt_blob --query Plaintext --output text | base64 --decode
 }

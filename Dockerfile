@@ -35,4 +35,4 @@ EXPOSE 4242
 
 USER node
 
-CMD ["entrypoint.sh"]
+CMD ["/bin/bash", "entrypoint.sh"]
