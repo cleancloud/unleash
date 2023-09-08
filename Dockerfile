@@ -2,8 +2,6 @@ ARG NODE_VERSION=18-alpine
 
 FROM node:$NODE_VERSION as builder
 
-RUN apt update && apt install -y --no-install-recommends awscli
-
 WORKDIR /unleash
 
 COPY . /unleash
