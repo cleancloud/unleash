@@ -25,11 +25,9 @@ ENV TZ UTC
 
 WORKDIR /unleash
 
-RUN chmod +x entrypoint.sh
-
 COPY --from=builder /unleash/docker /unleash
 
-COPY --from=builder /unleash/docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 RUN rm -rf /usr/local/lib/node_modules/npm/
 
@@ -37,6 +35,6 @@ EXPOSE 4242
 
 USER node
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
 
 CMD ["start"]
