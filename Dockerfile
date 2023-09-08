@@ -2,8 +2,6 @@ ARG NODE_VERSION=18-alpine
 
 FROM node:$NODE_VERSION as builder
 
-RUN npm install aws-sdk
-
 WORKDIR /unleash
 
 COPY . /unleash
