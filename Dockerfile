@@ -37,8 +37,6 @@ EXPOSE 4242
 
 USER node
 
-RUN ls -a
-
-ENTRYPOINT ["./unleash/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
 
 CMD ["start"]
