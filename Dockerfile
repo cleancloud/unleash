@@ -29,7 +29,7 @@ COPY --from=builder /unleash/docker /unleash
 
 COPY --from=builder /unleash/docker/entrypoint.sh /unleash/entrypoint.sh
 
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 RUN rm -rf /usr/local/lib/node_modules/npm/
 
@@ -39,4 +39,4 @@ USER node
 
 ENTRYPOINT ["./entrypoint.sh"]
 
-CMD ["start"]
+CMD ["ls"]
