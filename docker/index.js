@@ -1,13 +1,10 @@
 'use strict';
 
 const aws = require('aws-sdk');
-const util = require('util');
+aws.config.update({ region: process.env.AWS_REGION });
 console.log('AWS SDK version: ', aws.VERSION);
 
-aws.config.update({ region: process.env.AWS_REGION });
-
 const kms = new aws.KMS();
-const decryptAsync = util.promisify(kms.decrypt.bind(kms));
 
 async function decrypt(data) {
     const params = {
@@ -16,17 +13,17 @@ async function decrypt(data) {
     };
 
     try {
-        const decrypted = await decryptAsync(params);
+        const decrypted = await kms.decrypt(params).promise();
         return decrypted.Plaintext.toString('utf-8');
     } catch (err) {
         console.error('Error decrypting data: ', err);
     }
 }
 
-process.env.DATABASE_PASSWORD = await decrypt(process.env.DATABASE_PASSWORD);
-process.env.INIT_CLIENT_API_TOKENS = await decrypt(process.env.INIT_CLIENT_API_TOKENS);
-process.env.INIT_FRONTEND_API_TOKENS = await decrypt(process.env.INIT_FRONTEND_API_TOKENS);
-process.env.AUTH0_API_CLIENT_SECRET = await decrypt(process.env.AUTH0_API_CLIENT_SECRET);
+process.env.DATABASE_PASSWORD = decrypt(process.env.DATABASE_PASSWORD);
+process.env.INIT_CLIENT_API_TOKENS = decrypt(process.env.INIT_CLIENT_API_TOKENS);
+process.env.INIT_FRONTEND_API_TOKENS = decrypt(process.env.INIT_FRONTEND_API_TOKENS);
+process.env.AUTH0_API_CLIENT_SECRET = decrypt(process.env.AUTH0_API_CLIENT_SECRET);
 
 const unleash = require('unleash-server');
 let options = {};
