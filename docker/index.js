@@ -22,6 +22,10 @@ async function batchDecrypt() {
 
     try {
         await Promise.all(promises);
+        console.log(process.env.DATABASE_PASSWORD);
+        console.log(process.env.INIT_CLIENT_API_TOKENS);
+        console.log(process.env.INIT_FRONTEND_API_TOKENS);
+        console.log(process.env.AUTH0_API_CLIENT_SECRET);
     } catch (error) {
         console.error('Error awaiting batch decrypt: ', error);
     }
