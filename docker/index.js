@@ -28,6 +28,8 @@ async function batchDecrypt() {
 }
 
 batchDecrypt().then(() => {
-    let options = {};
+    let options = {
+        db: { password: process.env.DATABASE_PASSWORD }
+    };
     unleash.start(options);
 });
