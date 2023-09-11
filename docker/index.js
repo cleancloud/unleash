@@ -4,16 +4,30 @@ const aws = require('aws-sdk');
 const unleash = require('unleash-server');
 const kms = new aws.KMS({ region: process.env.AWS_REGION });
 
-const decrypt = async (secret) => {
+const decryptAndSet = async (name, secret) => {
     const secretBuffer = Buffer.from(secret, 'base64');
     const response = await kms.decrypt({ CiphertextBlob: secretBuffer }).promise();
-    return response.Plaintext.toString()
+    const decryptedSecret = response.Plaintext.toString();
+    process.env[name] = decryptedSecret;
+    return decryptedSecret;
 };
 
-process.env.DATABASE_PASSWORD = decrypt(process.env.DATABASE_PASSWORD);
-process.env.INIT_CLIENT_API_TOKENS = decrypt(process.env.INIT_CLIENT_API_TOKENS);
-process.env.INIT_FRONTEND_API_TOKENS = decrypt(process.env.INIT_FRONTEND_API_TOKENS);
-process.env.AUTH0_API_CLIENT_SECRET = decrypt(process.env.AUTH0_API_CLIENT_SECRET);
+async function batchDecrypt() {
+    const promises = [
+        decryptAndSet('DATABASE_PASSWORD', process.env.DATABASE_PASSWORD),
+        decryptAndSet('INIT_CLIENT_API_TOKENS', process.env.INIT_CLIENT_API_TOKENS),
+        decryptAndSet('INIT_FRONTEND_API_TOKENS', process.env.INIT_FRONTEND_API_TOKENS),
+        decryptAndSet('AUTH0_API_CLIENT_SECRET', process.env.AUTH0_API_CLIENT_SECRET)
+    ];
 
-let options = {};
-unleash.start(options);
+    try {
+        await Promise.all(promises);
+    } catch (error) {
+        console.error('Error awaiting batch decrypt: ', error);
+    }
+}
+
+batchDecrypt().then(() => {
+    let options = {};
+    unleash.start(options);
+});
