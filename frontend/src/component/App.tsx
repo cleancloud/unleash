@@ -31,8 +31,8 @@ const StyledContainer = styled('div')(() => ({
 
 export const App = () => {
     const auth0Config = {
-        domain: import.meta.env.REACT_APP_AUTH0_DOMAIN || '',
-        clientId: import.meta.env.REACT_APP_AUTH0_CLIENT_ID || '',
+        domain: import.meta.env.VITE_AUTH0_DOMAIN || '',
+        clientId: import.meta.env.VITE_AUTH0_CLIENT_ID || '',
     };
 
     const { authDetails } = useAuthDetails();
@@ -74,26 +74,30 @@ export const App = () => {
                                             <StyledContainer>
                                                 <ToastRenderer />
                                                 <Routes>
-                                                    {availableRoutes.map(route => (
-                                                        <Route
-                                                            key={route.path}
-                                                            path={route.path}
-                                                            element={
-                                                                <LayoutPicker
-                                                                    isStandalone={
-                                                                        route.isStandalone ===
-                                                                        true
-                                                                    }
-                                                                >
-                                                                    <ProtectedRoute
-                                                                        route={
-                                                                            route
+                                                    {availableRoutes.map(
+                                                        route => (
+                                                            <Route
+                                                                key={route.path}
+                                                                path={
+                                                                    route.path
+                                                                }
+                                                                element={
+                                                                    <LayoutPicker
+                                                                        isStandalone={
+                                                                            route.isStandalone ===
+                                                                            true
                                                                         }
-                                                                    />
-                                                                </LayoutPicker>
-                                                            }
-                                                        />
-                                                    ))}
+                                                                    >
+                                                                        <ProtectedRoute
+                                                                            route={
+                                                                                route
+                                                                            }
+                                                                        />
+                                                                    </LayoutPicker>
+                                                                }
+                                                            />
+                                                        )
+                                                    )}
                                                     <Route
                                                         path="/"
                                                         element={
