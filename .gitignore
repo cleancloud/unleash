@@ -54,6 +54,9 @@ yarn.lock
 # Ignore frontend build
 frontend/build
 
+# Ignore build
+/build
+
 # Generated docs
 website/docs/reference/api/**/sidebar.js
 website/docs/generated
