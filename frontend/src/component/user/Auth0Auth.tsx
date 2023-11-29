@@ -49,15 +49,15 @@ const Auth0Auth: VFC<IAuth0AuthProps> = ({ authDetails, redirect }) => {
     }>({});
     const { getAccessTokenWithPopup, user: auth0User } = useAuth0();
 
-    const handleAuth0: MouseEventHandler<HTMLButtonElement> =  async evt => {
+    const handleAuth0: MouseEventHandler<HTMLButtonElement> = async evt => {
         evt.preventDefault();
 
         try {
             await getAccessTokenWithPopup({
-                cacheMode: 'off'
+                cacheMode: 'off',
             });
             await auth0Auth(authDetails.path, auth0User.sub);
-            refetchUser();
+            // refetchUser();
             navigate(redirect, { replace: true });
         } catch (error: any) {
             if (
