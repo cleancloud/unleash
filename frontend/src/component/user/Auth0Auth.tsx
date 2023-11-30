@@ -57,7 +57,7 @@ const Auth0Auth: VFC<IAuth0AuthProps> = ({ authDetails, redirect }) => {
                 cacheMode: 'off',
             });
             await auth0Auth(authDetails.path, auth0User.sub);
-            // refetchUser();
+            refetchUser();
             navigate(redirect, { replace: true });
         } catch (error: any) {
             if (
