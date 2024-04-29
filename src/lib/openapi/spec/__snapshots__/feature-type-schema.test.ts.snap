@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`featureTypeSchema empty 1`] = `
+{
+  "errors": [
+    {
+      "instancePath": "",
+      "keyword": "required",
+      "message": "must have required property 'id'",
+      "params": {
+        "missingProperty": "id",
+      },
+      "schemaPath": "#/required",
+    },
+    {
+      "instancePath": "",
+      "keyword": "required",
+      "message": "must have required property 'name'",
+      "params": {
+        "missingProperty": "name",
+      },
+      "schemaPath": "#/required",
+    },
+    {
+      "instancePath": "",
+      "keyword": "required",
+      "message": "must have required property 'description'",
+      "params": {
+        "missingProperty": "description",
+      },
+      "schemaPath": "#/required",
+    },
+    {
+      "instancePath": "",
+      "keyword": "required",
+      "message": "must have required property 'lifetimeDays'",
+      "params": {
+        "missingProperty": "lifetimeDays",
+      },
+      "schemaPath": "#/required",
+    },
+  ],
+  "schema": "#/components/schemas/featureTypeSchema",
+}
+`;

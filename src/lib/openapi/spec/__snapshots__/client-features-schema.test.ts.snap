@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`clientFeaturesSchema no fields 1`] = `
+{
+  "errors": [
+    {
+      "instancePath": "",
+      "keyword": "required",
+      "message": "must have required property 'version'",
+      "params": {
+        "missingProperty": "version",
+      },
+      "schemaPath": "#/required",
+    },
+    {
+      "instancePath": "",
+      "keyword": "required",
+      "message": "must have required property 'features'",
+      "params": {
+        "missingProperty": "features",
+      },
+      "schemaPath": "#/required",
+    },
+  ],
+  "schema": "#/components/schemas/clientFeaturesSchema",
+}
+`;

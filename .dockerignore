@@ -1,0 +1,14 @@
+*
+!src
+!package.json
+!docker
+!yarn.lock
+!scripts
+!tsconfig.json
+!docs
+!CHANGELOG.md
+!LICENSE
+!README.md
+!frontend
+!env.d.ts
+frontend/node_modules
