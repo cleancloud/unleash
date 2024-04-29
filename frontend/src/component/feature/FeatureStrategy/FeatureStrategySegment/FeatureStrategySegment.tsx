@@ -33,11 +33,11 @@ export const FeatureStrategySegment = ({
             selectedSegments.length >= strategySegmentsLimit
     );
 
-    if (!allSegments || allSegments.length === 0) {
+    if (!allSegments || allSegments.segments.length === 0) {
         return null;
     }
 
-    const allSelectableSegments = allSegments.filter(
+    const allSelectableSegments = allSegments.segments.filter(
         ({ project }) => !project || project === projectId
     );
 
@@ -51,7 +51,7 @@ export const FeatureStrategySegment = ({
     }));
 
     const onChange = ([option]: IAutocompleteBoxOption[]) => {
-        const selectedSegment = allSegments.find(segment => {
+        const selectedSegment = allSegments.segments.find(segment => {
             return String(segment.id) === option.value;
         });
         if (selectedSegment) {

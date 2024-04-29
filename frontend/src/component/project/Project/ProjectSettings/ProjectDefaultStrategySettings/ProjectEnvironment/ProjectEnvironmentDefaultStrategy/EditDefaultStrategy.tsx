@@ -65,7 +65,9 @@ const EditDefaultStrategy = () => {
             const temp: ISegment[] = [];
             for (const segmentId of strategy?.segments) {
                 temp.push(
-                    ...allSegments.filter(segment => segment.id === segmentId)
+                    ...allSegments.segments.filter(
+                        segment => segment.id === segmentId
+                    )
                 );
             }
             setSegments(temp);
