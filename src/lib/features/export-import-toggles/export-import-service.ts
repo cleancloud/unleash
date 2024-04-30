@@ -44,6 +44,7 @@ import { isValidField } from './import-context-validation';
 import { IImportTogglesStore } from './import-toggles-store-type';
 import { ImportPermissionsService } from './import-permissions-service';
 import { ImportValidationMessages } from './import-validation-messages';
+import { IContextFieldDto } from 'lib/types/stores/context-field-store';
 
 export default class ExportImportService {
     private logger: Logger;
@@ -168,7 +169,7 @@ export default class ExportImportService {
         const errors = ImportValidationMessages.compileErrors(
             dto.project,
             unsupportedStrategies,
-            unsupportedContextFields || [],
+            (unsupportedContextFields || []) as IContextFieldDto[],
             [],
             otherProjectFeatures,
             false,
@@ -299,7 +300,7 @@ export default class ExportImportService {
                 this.contextService.createContextField(
                     {
                         name: contextField.name,
-                        description: contextField.description,
+                        description: contextField.description ?? undefined,
                         legalValues: contextField.legalValues,
                         stickiness: contextField.stickiness,
                     },
@@ -508,7 +509,10 @@ export default class ExportImportService {
 
         return dto.data.contextFields?.filter(
             (contextField) =>
-                !isValidField(contextField, availableContextFields),
+                !isValidField(
+                    contextField as IContextFieldDto,
+                    availableContextFields,
+                ),
         );
     }
 
