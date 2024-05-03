@@ -46,7 +46,7 @@ export const StrategyExecution: VFC<IStrategyExecutionProps> = ({
     const { strategies } = useStrategies();
     const { uiConfig } = useUiConfig();
     const { segments } = useSegments();
-    const strategySegments = segments?.filter(segment => {
+    const strategySegments = segments?.segments?.filter(segment => {
         return strategy.segments?.includes(segment.id);
     });
 

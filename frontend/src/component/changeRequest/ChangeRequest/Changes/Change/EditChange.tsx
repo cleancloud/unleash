@@ -50,7 +50,7 @@ export const EditChange = ({
     );
 
     const { segments: allSegments } = useSegments();
-    const strategySegments = (allSegments || []).filter(segment => {
+    const strategySegments = (allSegments?.segments || []).filter(segment => {
         return change.payload.segments?.includes(segment.id);
     });
 

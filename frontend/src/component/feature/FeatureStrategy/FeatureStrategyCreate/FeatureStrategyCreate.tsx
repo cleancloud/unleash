@@ -50,7 +50,7 @@ export const FeatureStrategyCreate = () => {
     )?.defaultStrategy;
 
     const { segments: allSegments } = useSegments();
-    const strategySegments = (allSegments || []).filter(segment => {
+    const strategySegments = (allSegments?.segments || []).filter(segment => {
         return defaultStrategy?.segments?.includes(segment.id);
     });
 
